@@ -7,7 +7,7 @@
     <meta name="author" content="yzen.dev">
     <title>Local Mailer</title>
     {{-- Styles --}}
-    <link href="/local-mailer/resource/css/styles.css" rel="stylesheet">
+    <link href="/{{app()['config']->get('local-mailer.route.prefix', 'local-mailer')}}/resource/css/styles.css" rel="stylesheet">
 </head>
 <body>
 

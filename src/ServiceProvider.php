@@ -21,13 +21,22 @@ class ServiceProvider extends BaseServiceProvider
     public function register(): void
     {
         parent::register();
-        try {
-            $this->createLocalMailer();
-        } catch (\Throwable $exception) {
-            dd($exception);
-        }
-        $this->app->register(RouteServiceProvider::class);
+
+        $this->app->singleton(FilesystemContract::class, function ($app) {
+            return new Filesystem($app['files'], $app['path.storage']);
+        });
+
+        $this->app->singleton(MailLoggerContract::class, function ($app) {
+            return new MailerLogger($app->make(FilesystemContract::class));
+        });
+        
         $this->loadViewsFrom(__DIR__ . '/views', 'local-mailer');
+
+        $this->mergeConfigFrom(__DIR__ . '/config/local-mailer.php', 'local-mailer');
+
+        if ($this->app['config']->get('local-mailer.route.enabled', false)){
+            $this->app->register(RouteServiceProvider::class);
+        }
     }
 
     /**
@@ -43,20 +52,6 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * @return void
-     */
-    protected function createLocalMailer()
-    {
-        $this->app->singleton(FilesystemContract::class, function ($app) {
-            return new Filesystem($app['files'], $app['path.storage']);
-        });
-
-        $this->app->singleton(MailLoggerContract::class, function ($app) {
-            return new MailerLogger($app->make(FilesystemContract::class));
-        });
-    }
-
-    /**
      * Bootstrap any application services.
      *
      * @return void
@@ -64,6 +59,14 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function boot(): void
     {
+        $this->publishes(
+            [
+                /* @phpstan-ignore-next-line */
+                __DIR__ . '/config/local-mailer.php' => config_path('local-mailer.php'),
+            ],
+            'config'
+        );
+        
         Mail::extend('local-mailer', function () {
             return new LocalMailerTransport($this->app->make(MailLoggerContract::class));
         });
