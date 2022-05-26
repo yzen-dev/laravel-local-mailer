@@ -24,7 +24,7 @@
                     </a>
                 </td>
                 <td class="text-right">
-                    <a class="btn btn-success btn-sm" href="{{ route('local-mailer::download-log',$file['date']) }}"
+                    <a class="btn-success mr-2" href="{{ route('local-mailer::download-log',$file['date']) }}"
                        target="_blank">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
                              fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -34,7 +34,7 @@
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
                     </a>
-                    <a class="btn btn-danger btn-sm" href="{{ route('local-mailer::delete-log',$file['date']) }}">
+                    <a class="btn-danger" href="{{ route('local-mailer::delete-log',$file['date']) }}">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
                              fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="3 6 5 6 21 6"></polyline>
