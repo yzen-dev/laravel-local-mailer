@@ -17,7 +17,7 @@ class RouteServiceProvider extends BaseRouteServiceProvider
     public function map(): void
     {
         $prefix = $this->app['config']->get('local-mailer.route.prefix', 'local-mailer');
-        
+
         $this->group(
             [
                 'prefix' => $prefix,
@@ -25,6 +25,8 @@ class RouteServiceProvider extends BaseRouteServiceProvider
             function () {
                 $this->get('/', [LocalMailerController::class, 'index'])->name('local-mailer::dashboard');
                 $this->get('/{date}', [LocalMailerController::class, 'showByDate'])->name('local-mailer::show-by-date');
+                $this->get('/{date}/download', [LocalMailerController::class, 'downloadLog'])->name('local-mailer::download-log');
+                $this->get('/{date}/remove', [LocalMailerController::class, 'deleteLog'])->name('local-mailer::delete-log');
             }
         );
         $this->group(
@@ -33,9 +35,9 @@ class RouteServiceProvider extends BaseRouteServiceProvider
                 'prefix' => $prefix,
             ],
             function () {
-                $this->get('/resource/{file}',[LocalMailerResourceController::class, 'index'])->where('file', '.*')->name('local-mailer::resource');
+                $this->get('/resource/{file}', [LocalMailerResourceController::class, 'index'])->where('file', '.*')->name('local-mailer::resource');
             }
         );
     }
-    
+
 }

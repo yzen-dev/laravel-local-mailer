@@ -18,6 +18,7 @@ class LocalMailerService
     protected FilesystemContract $filesystem;
 
     /**
+     * @param FilesystemContract $filesystem
      */
     public function __construct(FilesystemContract $filesystem)
     {
@@ -37,7 +38,8 @@ class LocalMailerService
     }
 
     /**
-     * @return array|array[]
+     * @return array
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function getAll(): array
     {
@@ -59,11 +61,33 @@ class LocalMailerService
      * @param string $date
      *
      * @return array<\LocalMailer\Parser\Mail>
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function getLog(string $date): array
     {
         return (new MailParser($this->filesystem->readByDate($date)))->parse();
-        
+    }
+
+    /**
+     * @param string $date
+     *
+     * @return string
+     */
+    public function getPathByDate(string $date): string
+    {
+        return $this->filesystem->getLogPath($date);
+
+    }
+
+    /**
+     * @param string $date
+     *
+     * @return bool
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function delete(string $date): bool
+    {
+        return $this->filesystem->delete($date);
     }
 
 }

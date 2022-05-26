@@ -2,6 +2,8 @@
 
 namespace LocalMailer\Contract;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+
 /**
  * Class FilesystemContract
  *
@@ -25,6 +27,7 @@ interface FilesystemContract
      * @param string $date
      *
      * @return string
+     * @throws FileNotFoundException
      */
     public function readByDate(string $date): string;
 
@@ -34,11 +37,12 @@ interface FilesystemContract
      * @return mixed
      */
     public function getLogPath(string $date);
-    
+
     /**
      * @param string $path
      *
      * @return string
+     * @throws FileNotFoundException
      */
     public function get(string $path): string;
 
@@ -47,8 +51,19 @@ interface FilesystemContract
      *
      * @param string $date
      * @param string $content
-     * 
+     *
      * @return void
+     * @throws FileNotFoundException
      */
     public function prepend(string $date, string $content);
+
+    /**
+     * Delete log file.
+     *
+     * @param string $date
+     *
+     * @return bool
+     * @throws FileNotFoundException
+     */
+    public function delete(string $date): bool;
 }

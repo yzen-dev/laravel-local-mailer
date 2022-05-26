@@ -2,6 +2,7 @@
 
 namespace LocalMailer;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use LocalMailer\Contract\FilesystemContract;
 use Illuminate\Filesystem\Filesystem as IlluminateFilesystem;
 
@@ -86,6 +87,7 @@ class Filesystem implements FilesystemContract
      * @param string $date
      *
      * @return string
+     * @throws FileNotFoundException
      */
     public function readByDate(string $date): string
     {
@@ -105,14 +107,15 @@ class Filesystem implements FilesystemContract
      *
      * @param string $date
      *
-     * @return string|false
+     * @return string
+     * @throws FileNotFoundException
      */
     public function getLogPath(string $date): string
     {
         $path = $this->storagePath . DIRECTORY_SEPARATOR . 'mails' . DIRECTORY_SEPARATOR . 'mails-' . $date . '.log';
 
         if (!$this->filesystem->exists($path)) {
-            throw new \RuntimeException('File not found');
+            throw new FileNotFoundException('File ' . $path . ' not found');
         }
 
         return realpath($path);
@@ -123,11 +126,25 @@ class Filesystem implements FilesystemContract
      *
      * @param string $date
      * @param string $content
+     *
+     * @return void
+     * @throws FileNotFoundException
      */
     public function prepend(string $date, string $content)
     {
-        $path = $this->storagePath . DIRECTORY_SEPARATOR . 'mails' . DIRECTORY_SEPARATOR . 'mails-' . $date . '.log';
+        $this->filesystem->prepend($this->getLogPath($date), $content);
+    }
 
-        $this->filesystem->prepend($path, $content);
+    /**
+     * Remove log file.
+     *
+     * @param string $date
+     *
+     * @return bool
+     * @throws FileNotFoundException
+     */
+    public function delete(string $date): bool
+    {
+        return $this->filesystem->delete($this->getLogPath($date));
     }
 }
