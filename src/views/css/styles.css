@@ -1,0 +1,247 @@
+html body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'wf_SegoeUILight', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-rendering: optimizeLegibility;
+
+    background: #c850c0;
+    background: -webkit-linear-gradient(45deg, #4158d0, #c850c0);
+    background: -o-linear-gradient(45deg, #4158d0, #c850c0);
+    background: -moz-linear-gradient(45deg, #4158d0, #c850c0);
+    background: linear-gradient(45deg, #4158d0, #c850c0);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+}
+
+@media (max-width: 480px) {
+    html,
+    body {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    html,
+    body {
+        font-size: 14px;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 960px;
+    width: 100%;
+    padding-right: .75rem;
+    padding-left: .75rem;
+    margin: auto;
+    max-height: 90vh;
+}
+
+.container__full-heigth {
+    height: 85vh;
+}
+
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+
+table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+table thead tr {
+    height: 60px;
+    background: #36304a;
+}
+
+table thead tr td {
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.2;
+    font-weight: unset;
+}
+
+table td {
+    text-align: left;
+}
+
+tbody tr {
+    font-size: 15px;
+    color: #808080;
+    line-height: 1.2;
+    font-weight: unset;
+}
+
+table tbody tr a {
+    color: #808080;
+    text-decoration: none;
+}
+
+
+table td:first-child {
+    padding-left: 40px;
+}
+
+table td:last-child {
+    padding-right: 40px;
+}
+
+table tbody tr {
+    height: 50px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+table tbody tr:hover {
+    color: #555555;
+    background-color: #f5f5f5;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+
+/*-------MAILBOX--*/
+
+.mailbox {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    height: 100%;
+}
+
+.mailbox-head {
+    height: 60px;
+    background: #36304a;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.mailbox-head_title {
+    margin: 0;
+}
+
+.mailbox-body {
+    background: #fff;
+    display: flex;
+    height: 100%;
+}
+
+.mail-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e8e8e8;
+    padding: 10px 0;
+}
+
+.mail-preview {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid #e8e8e8;
+    cursor: pointer;
+}
+
+.mail-preview:hover {
+    background-color: #f5f5f5;
+}
+
+.mail-preview_subject {
+    color: #2a2a2a;
+    font-size: 1rem;
+}
+
+.mail-preview_date {
+    color: #a0a0a0;
+    font-size: .8rem;
+}
+
+.mail-content {
+    flex: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mail-recipient {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: #a0a0a0;
+    font-size: .8rem;
+}
+
+.mail-recipient_list {
+    color: #2a2a2a;
+    font-size: 1rem;
+}
+
+.mail-frame {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
