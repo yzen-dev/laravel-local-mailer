@@ -108,11 +108,23 @@ class Filesystem implements FilesystemContract
      * @param string $date
      *
      * @return string
+     */
+    public function getFormatterPath($date)
+    {
+        return $this->storagePath . DIRECTORY_SEPARATOR . 'mails' . DIRECTORY_SEPARATOR . 'mails-' . $date . '.log';
+    }
+    
+    /**
+     * Get the log file path.
+     *
+     * @param string $date
+     *
+     * @return string
      * @throws FileNotFoundException
      */
     public function getLogPath(string $date): string
     {
-        $path = $this->storagePath . DIRECTORY_SEPARATOR . 'mails' . DIRECTORY_SEPARATOR . 'mails-' . $date . '.log';
+        $path = $this->getFormatterPath($date);
 
         if (!$this->filesystem->exists($path)) {
             throw new FileNotFoundException('File ' . $path . ' not found');
@@ -132,7 +144,7 @@ class Filesystem implements FilesystemContract
      */
     public function prepend(string $date, string $content)
     {
-        $this->filesystem->prepend($this->getLogPath($date), $content);
+        $this->filesystem->prepend($this->getFormatterPath($date), $content);
     }
 
     /**
