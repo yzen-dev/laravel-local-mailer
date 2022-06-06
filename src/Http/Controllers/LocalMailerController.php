@@ -5,6 +5,7 @@ namespace LocalMailer\Http\Controllers;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use LocalMailer\LocalMailerService;
+use LocalMailer\Http\Resources\MailResources;
 
 /**
  *
@@ -43,9 +44,10 @@ class LocalMailerController
     public function showByDate(Request $request)
     {
         try{
+            $mails = $this->localMailerService->getLog($request->route('date'));
             return view('local-mailer::mails', [
                 'date' => $request->route('date'),
-                'mails' => $this->localMailerService->getLog($request->route('date')),
+                'mails' => MailResources::collection($mails),
             ]);
         } catch (FileNotFoundException $exception){
             return view('local-mailer::not-found', [
@@ -68,13 +70,13 @@ class LocalMailerController
                 'date' => $request->route('date')
             ]);
         }
-        
+
     }
 
     /**
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function deleteLog(Request $request)
     {
