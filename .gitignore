@@ -2,7 +2,6 @@
 vendor/
 .phpunit.cache/
 
-tests/storage/
 public
 
 .DS_Store
