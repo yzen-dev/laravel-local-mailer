@@ -1,5 +1,13 @@
 # Local mailer for laravel
 
+![Packagist Version](https://img.shields.io/packagist/v/yzen.dev/laravel-local-mailer?color=blue&label=version)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/yzen-dev/laravel-local-mailer/Run%20tests?label=tests&logo=github)
+[![Coverage](https://codecov.io/gh/yzen-dev/laravel-local-mailer/branch/master/graph/badge.svg?token=QAO8STLPMI)](https://codecov.io/gh/yzen-dev/laravel-local-mailer)
+![License](https://img.shields.io/github/license/yzen-dev/laravel-local-mailer)
+![Packagist Downloads](https://img.shields.io/packagist/dm/yzen.dev/laravel-local-mailer)
+![Packagist Downloads](https://img.shields.io/packagist/dt/yzen.dev/laravel-local-mailer)
+
+
 Each developer needs to check the sending of email messages during development. Most of them have their own ways - usage gmail, Mailtrap, laravel logs, etc.
 
 This solution will create its own mail transport, saving emails as daily logs, with the ability to view!
