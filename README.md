@@ -38,6 +38,9 @@ Now you can include this transport in the env:
 MAIL_MAILER=local-mailer
 ```
 
-The page for viewing is available at ``{HOST}/local-mailer``
+The page for viewing is available at ``{HOST}/local-mailer``.
+Here you can view the log for any date. For each log, the full email will be displayed - the title, to, contents of the letter (html page), attached files, etc.
 
-![image](https://user-images.githubusercontent.com/24630195/170495087-c172cd4f-14b3-41ea-b5ea-a5db67af6889.png)
+![image](https://user-images.githubusercontent.com/24630195/172157281-66206eee-b61b-48f9-b35b-e0387c48c683.png)
+
+
