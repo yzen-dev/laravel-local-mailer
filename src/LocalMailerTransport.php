@@ -60,7 +60,7 @@ class LocalMailerTransport extends Transport
         foreach ($entity->getChildren() as $child) {
             if ($child instanceof Swift_Attachment) {
                 $attachment [] = [
-                    'fileName' => $child->getFilename(),
+                    'name' => $child->getFilename(),
                     'size' => $child->getSize(),
                     'type' => $child->getBodyContentType(),
                     //'body'=>$child->getBody()
