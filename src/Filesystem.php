@@ -75,7 +75,7 @@ class Filesystem implements FilesystemContract
         try {
             $log = $this->filesystem->get($path);
         } catch (\Exception $e) {
-            throw new \RuntimeException('File not found');
+            throw new FileNotFoundException('File ' . $path . ' not found');
         }
 
         return $log;
@@ -96,10 +96,20 @@ class Filesystem implements FilesystemContract
                 $this->getLogPath($date)
             );
         } catch (\Exception $e) {
-            throw new \RuntimeException('File not found');
+            throw new FileNotFoundException('File by ' . $date . ' not found');
         }
 
         return $log;
+    }
+
+    /**
+     * Get the log dir.
+     *
+     * @return string
+     */
+    public function getDir()
+    {
+        return $this->storagePath . DIRECTORY_SEPARATOR . 'mails' . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -113,7 +123,7 @@ class Filesystem implements FilesystemContract
     {
         return $this->storagePath . DIRECTORY_SEPARATOR . 'mails' . DIRECTORY_SEPARATOR . 'mails-' . $date . '.log';
     }
-    
+
     /**
      * Get the log file path.
      *
@@ -125,12 +135,13 @@ class Filesystem implements FilesystemContract
     public function getLogPath(string $date): string
     {
         $path = $this->getFormatterPath($date);
+        $realpath = realpath($path);
 
-        if (!$this->filesystem->exists($path)) {
+        if (!$this->filesystem->exists($path) || !$realpath) {
             throw new FileNotFoundException('File ' . $path . ' not found');
         }
 
-        return realpath($path);
+        return $realpath;
     }
 
     /**
@@ -144,6 +155,9 @@ class Filesystem implements FilesystemContract
      */
     public function prepend(string $date, string $content)
     {
+        if (!$this->filesystem->exists($this->getDir())) {
+            $this->filesystem->makeDirectory($this->getDir());
+        }
         $this->filesystem->prepend($this->getFormatterPath($date), $content);
     }
 
@@ -158,5 +172,15 @@ class Filesystem implements FilesystemContract
     public function delete(string $date): bool
     {
         return $this->filesystem->delete($this->getLogPath($date));
+    }
+
+    /**
+     * Remove log dir.
+     *
+     * @return bool
+     */
+    public function deleteDirectory(): bool
+    {
+        return $this->filesystem->deleteDirectory($this->getDir());
     }
 }

@@ -246,6 +246,40 @@ table tbody tr:hover {
     font-size: 1rem;
 }
 
+.mail-attached-files {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: #a0a0a0;
+    font-size: .8rem;
+}
+
+.files-list {
+    color: #2a2a2a;
+    font-size: 1rem;
+    display: flex;
+    margin-top: 8px;
+}
+.file-item{
+    border-radius: 5px;
+    padding: 5px 8px;
+    margin-right: 5px;
+    background-color: #efefef;
+    display: flex;
+}
+
+.file-name{
+
+}
+.file-size{
+    font-size: 0.8rem;
+    border-radius: 3px;
+    padding: 3px 5px;
+    background-color: green;
+    color: white;
+    margin-left: 5px;
+}
+
 .mail-frame {
     border: none;
     width: 100%;
@@ -263,4 +297,8 @@ table tbody tr:hover {
 
 .btn-danger:hover {
     color: #d93c3c;
+}
+
+.hide{
+    display: none;
 }

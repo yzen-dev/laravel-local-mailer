@@ -17,9 +17,11 @@
             @if (count($mails) > 0)
                 <div class="mailbox-body">
                     <div class="mail-list">
-                        @foreach ($mails as $mail)
-                            <div class="mail-preview" data-mail-frame="{{$mail->body}}"
-                                 data-mail-recipient="{{json_encode($mail->to)}}">
+                        @foreach ($mails as $key => $mail)
+                            <div
+                                class="mail-preview"
+                                data-mail-key="{{$key}}"
+                            >
                                 <div class="mail-preview_subject">
                                     {{$mail->subject}}
                                 </div>
@@ -30,9 +32,14 @@
                         @endforeach
                     </div>
                     <div class="mail-content">
-                        <div class="mail-recipient">
+                        <div id="mailRecipientBlock" class="mail-recipient hide">
                             Recipient
-                            <div class="mail-recipient_list" id="mailRecipient">
+                            <div class="mail-recipient_list" id="recipientList">
+                            </div>
+                        </div>
+                        <div id="attachedFiles" class="mail-attached-files hide">
+                            Attached files
+                            <div class="files-list" id="filesList">
                             </div>
                         </div>
                         <iframe class="mail-frame" id="mailFrame">
@@ -47,13 +54,12 @@
         </div>
     </div>
     <script>
+        const mails = {!! json_encode($mails) !!};
 
-        let mails = document.querySelectorAll('.mail-preview');
+        const mailsBlock = document.querySelectorAll('.mail-preview');
 
-        Array.prototype.forEach.call(mails, (mail) => {
-            mail.addEventListener('click', async () => {
-                //document.getElementById('mailFrame').innerHTML = mail.dataset.mailFrame;
-                let recipient = document.getElementById('mailRecipient');
+        Array.prototype.forEach.call(mailsBlock, (mailElement) => {
+            mailElement.addEventListener('click', async () => {
                 let iframe = document.getElementById('mailFrame');
                 let content;
 
@@ -63,8 +69,25 @@
                     content = iframe.contentWindow.document;
                 }
 
-                content.body.innerHTML = mail.dataset.mailFrame;
-                recipient.innerText = Object.keys(JSON.parse(mail.dataset.mailRecipient));
+                const mail = mails[mailElement.dataset.mailKey-1];
+
+                content.body.innerHTML = mail.body;
+                document.getElementById('recipientList').innerText = Object.keys(mail.to);
+                document.getElementById('mailRecipientBlock').classList.toggle("hide", !mail.to );
+                if (mail.attachment) {
+                    files = '';
+                    mail.attachment.forEach(file => {
+                        let fileBlock = '<div class="file-item">';
+                        fileBlock += '<div class="file-name">' + file.name + '</div>';
+                        if (file.size){
+                            fileBlock += '<div class="file-size">' + file.size + '</div>';
+                        }
+                        fileBlock += '</div>';
+                        files += fileBlock;
+                    });
+                    document.getElementById('filesList').innerHTML = files;
+                }
+                document.getElementById('attachedFiles').classList.toggle("hide", mail.attachment.length === 0 );
             });
         });
 

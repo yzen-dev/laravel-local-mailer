@@ -34,9 +34,10 @@ interface FilesystemContract
     /**
      * @param string $date
      *
-     * @return mixed
+     * @return string
+     * @throws FileNotFoundException
      */
-    public function getLogPath(string $date);
+    public function getLogPath(string $date): string;
 
     /**
      * @param string $path
@@ -66,4 +67,11 @@ interface FilesystemContract
      * @throws FileNotFoundException
      */
     public function delete(string $date): bool;
+
+    /**
+     * Get the log dir.
+     *
+     * @return string
+     */
+    public function getDir();
 }
