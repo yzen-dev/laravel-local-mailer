@@ -33,7 +33,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->loadViewsFrom(__DIR__ . '/views', 'local-mailer');
 
         $this->mergeConfigFrom(__DIR__ . '/config/local-mailer.php', 'local-mailer');
-
+        
         if ($this->app['config']->get('local-mailer.route.enabled', false)){
             $this->app->register(RouteServiceProvider::class);
         }

@@ -78,7 +78,7 @@ class LocalMailerController
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function deleteLog(Request $request)
+    public function removeLog(Request $request)
     {
         try{
             $this->localMailerService->delete($request->route('date'));

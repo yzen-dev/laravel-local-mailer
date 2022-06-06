@@ -34,9 +34,6 @@ class MailParser
     public function parse(): array
     {
         $mailLogs = preg_split(self::PATTERN, $this->content);
-        if (!$mailLogs) {
-            throw new \RuntimeException('Invalid data format');
-        }
         $mailLogs = array_filter($mailLogs);
 
         return array_map(

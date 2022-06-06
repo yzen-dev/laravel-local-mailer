@@ -66,4 +66,11 @@ interface FilesystemContract
      * @throws FileNotFoundException
      */
     public function delete(string $date): bool;
+
+    /**
+     * Get the log dir.
+     *
+     * @return string
+     */
+    public function getDir();
 }

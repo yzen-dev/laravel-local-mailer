@@ -30,6 +30,8 @@
     "laravel/framework": "^7.0|^8.0|^v9.0"
   },
   "require-dev": {
+    "mockery/mockery": "1.*",
+    "orchestra/testbench": "6.*|7.*|8.*",
     "phpstan/phpstan": "^0.12.37",
     "phpunit/phpunit": "9.5.20",
     "squizlabs/php_codesniffer": "*"
@@ -46,6 +48,10 @@
     }
   },
   "scripts": {
+    "post-autoload-dump": [
+      "@php ./vendor/bin/testbench package:discover --ansi"
+    ],
+
     "phpunit": [
       "./vendor/phpunit/phpunit/phpunit --configuration ./phpunit.xml"
     ],
@@ -54,6 +60,12 @@
     ],
     "phpcs": [
       "./vendor/bin/phpcs --standard=./phpcs.xml -n --no-cache"
+    ],
+    "coverage": [
+      "./vendor/phpunit/phpunit/phpunit --configuration ./phpunit.xml --coverage-text --colors=never --coverage-clover coverage.xml"
+    ],
+    "coverage-html": [
+      "./vendor/phpunit/phpunit/phpunit --configuration ./phpunit.xml --coverage-html public/coverage --coverage-text"
     ]
   }
 }
