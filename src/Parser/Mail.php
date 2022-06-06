@@ -40,9 +40,9 @@ class Mail
     public string $body;
 
     /**
-     * @var array
+     * @var array<mixed>
      */
-    public array $attachment =[];
+    public array $attachment = [];
 
     /**
      * @param array<mixed> $args

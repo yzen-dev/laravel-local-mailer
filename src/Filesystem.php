@@ -109,9 +109,9 @@ class Filesystem implements FilesystemContract
      */
     public function getDir()
     {
-        return $this->storagePath . DIRECTORY_SEPARATOR . 'mails' . DIRECTORY_SEPARATOR ;
+        return $this->storagePath . DIRECTORY_SEPARATOR . 'mails' . DIRECTORY_SEPARATOR;
     }
-    
+
     /**
      * Get the log file path.
      *
@@ -123,7 +123,7 @@ class Filesystem implements FilesystemContract
     {
         return $this->storagePath . DIRECTORY_SEPARATOR . 'mails' . DIRECTORY_SEPARATOR . 'mails-' . $date . '.log';
     }
-    
+
     /**
      * Get the log file path.
      *
@@ -135,12 +135,13 @@ class Filesystem implements FilesystemContract
     public function getLogPath(string $date): string
     {
         $path = $this->getFormatterPath($date);
+        $realpath = realpath($path);
 
-        if (!$this->filesystem->exists($path)) {
+        if (!$this->filesystem->exists($path) || !$realpath) {
             throw new FileNotFoundException('File ' . $path . ' not found');
         }
 
-        return realpath($path);
+        return $realpath;
     }
 
     /**
@@ -154,7 +155,7 @@ class Filesystem implements FilesystemContract
      */
     public function prepend(string $date, string $content)
     {
-        if(!$this->filesystem->exists($this->getDir())){
+        if (!$this->filesystem->exists($this->getDir())) {
             $this->filesystem->makeDirectory($this->getDir());
         }
         $this->filesystem->prepend($this->getFormatterPath($date), $content);
@@ -172,7 +173,7 @@ class Filesystem implements FilesystemContract
     {
         return $this->filesystem->delete($this->getLogPath($date));
     }
-    
+
     /**
      * Remove log dir.
      *

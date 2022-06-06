@@ -34,7 +34,7 @@ class MailParser
     public function parse(): array
     {
         $mailLogs = preg_split(self::PATTERN, $this->content);
-        $mailLogs = array_filter($mailLogs);
+        $mailLogs = array_filter((array)$mailLogs);
 
         return array_map(
             static fn($mail) => new Mail(json_decode($mail, true)),

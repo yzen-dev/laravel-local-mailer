@@ -2,6 +2,7 @@
 
 namespace LocalMailer;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use LocalMailer\Parser\MailParser;
 use LocalMailer\Contract\FilesystemContract;
 
@@ -38,8 +39,8 @@ class LocalMailerService
     }
 
     /**
-     * @return array
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @return array<array>
+     * @throws FileNotFoundException
      */
     public function getAll(): array
     {
@@ -61,7 +62,7 @@ class LocalMailerService
      * @param string $date
      *
      * @return array<\LocalMailer\Parser\Mail>
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function getLog(string $date): array
     {
@@ -72,22 +73,21 @@ class LocalMailerService
      * @param string $date
      *
      * @return string
+     * @throws FileNotFoundException
      */
     public function getPathByDate(string $date): string
     {
         return $this->filesystem->getLogPath($date);
-
     }
 
     /**
      * @param string $date
      *
      * @return bool
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function delete(string $date): bool
     {
         return $this->filesystem->delete($date);
     }
-
 }

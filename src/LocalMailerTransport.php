@@ -58,16 +58,16 @@ class LocalMailerTransport extends Transport
     {
         $attachment = [];
         foreach ($entity->getChildren() as $child) {
-            if ($child instanceof Swift_Attachment){
-                $attachment []=[
-                    'fileName'=>$child->getFilename(),
-                    'size'=>$child->getSize(),
-                    'type'=>$child->getBodyContentType(),
+            if ($child instanceof Swift_Attachment) {
+                $attachment [] = [
+                    'fileName' => $child->getFilename(),
+                    'size' => $child->getSize(),
+                    'type' => $child->getBodyContentType(),
                     //'body'=>$child->getBody()
                 ];
             }
         }
-        
+
         return json_encode([
             'id' => $this->uuidV4(),
             'body' => $entity->getBody(),
@@ -75,12 +75,12 @@ class LocalMailerTransport extends Transport
             'to' => $entity->getTo(),
             'from' => $entity->getFrom(),
             'date' => date("Y-m-d H:i:s"),
-            'attachment'=>$attachment
+            'attachment' => $attachment
         ], JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Get random UUID 
+     * Get random UUID
      *
      * @return string UUID
      * @static
@@ -99,5 +99,4 @@ class LocalMailerTransport extends Transport
             mt_rand(0, 0xffff)
         );
     }
-
 }

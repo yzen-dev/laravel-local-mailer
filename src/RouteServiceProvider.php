@@ -16,6 +16,7 @@ class RouteServiceProvider extends BaseRouteServiceProvider
      */
     public function map(): void
     {
+        /** @phpstan-ignore-next-line */
         $prefix = $this->app['config']->get('local-mailer.route.prefix', 'local-mailer');
 
         $this->group(
@@ -39,5 +40,4 @@ class RouteServiceProvider extends BaseRouteServiceProvider
             }
         );
     }
-
 }

@@ -3,7 +3,7 @@
 namespace LocalMailer\Contract;
 
 /**
- * Class FilesystemContract
+ * Class MailLoggerContract
  *
  * @author yzen.dev <yzen.dev@gmail.com>
  */
@@ -15,5 +15,4 @@ interface MailLoggerContract
      * @return void
      */
     public function write(string $mail);
-    
 }

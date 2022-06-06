@@ -17,18 +17,17 @@ class LocalMailerResourceController
      */
     public function index(Request $request)
     {
-        $ext = pathinfo($request->route('file'), PATHINFO_EXTENSION);
+        $path = (string)$request->route('file');
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
         $path = __DIR__ . '/../../views/' . $request->route('file');
         if (!file_exists($path)) {
             return Response::make('', 404);
         }
         $src = file_get_contents($path);
-        
-        $response = Response::make($src, 200);
+        $response = Response::make((string) $src);
         if ($ext === 'css') {
             $response->header('Content-Type', 'text/css');
         }
         return $response;
     }
-
 }
