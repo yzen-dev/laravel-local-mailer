@@ -1,6 +1,6 @@
 {
   "name": "yzen.dev/laravel-local-mailer",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "",
   "minimum-stability": "dev",
   "prefer-stable": true,
